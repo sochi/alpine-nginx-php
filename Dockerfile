@@ -1,9 +1,10 @@
-FROM alpine:3.10
+FROM alpine:3.11
 
 RUN apk --no-cache add \
   curl \
   php7 \
   php7-fpm \
+  php7-opcache \
   php7-mysqli \
   php7-json \
   php7-openssl \
