@@ -95,5 +95,5 @@ RUN composer install --optimize-autoloader --no-interaction --no-progress
 ## Building the image locally
 
 ```bash
-docker build -t docker-php-nginx .
+docker build -t alpine-nginx-php .
 ```
