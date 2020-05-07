@@ -42,7 +42,6 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chown -R nginx:nginx /run \
   && chown -R nginx:nginx /var/lib/nginx \
   && chmod -R g+w /var/lib/nginx \
-  && chown -R nginx:nginx /var/tmp/nginx \
   && chown -R nginx:nginx /var/log/nginx
 
 # switch to use a non-root user
