@@ -10,8 +10,8 @@ here:
 * based on Alpine Linux distribution
 * running unprivileged Nginx and PHP-FPM from supervisord
 
-[![Docker pulls](https://img.shields.io/docker/pulls/jso26/onesite-nginx-php.svg)](https://hub.docker.com/r/jso26/onesite-nginx-php/)
-[![Docker image layers](https://images.microbadger.com/badges/image/jso26/onesite-nginx-php.svg)](https://microbadger.com/images/jso26/onesite-nginx-php)
+[![Docker pulls](https://img.shields.io/docker/pulls/s0chi/alpine-nginx-php.svg)](https://hub.docker.com/r/s0chi/alpine-nginx-php/)
+[![Docker image layers](https://images.microbadger.com/badges/image/s0chi/alpine-nginx-php.svg)](https://microbadger.com/images/s0chi/alpine-nginx-php)
 
 ## Extending the server
 
@@ -27,7 +27,7 @@ to the service; for details see below.
 
 ```Dockerfile
 # build an image from this repository as base image
-FROM docker-php-nginx
+FROM s0chi/alpine-nginx-php
 WORKDIR /var/www
 COPY --chown=nginx <your_directory>/ /var/www
 
@@ -83,7 +83,7 @@ rewritten using a multi-stage build definition.
 
 ```Dockerfile
 # build the image locally or download it from the Docker Hub
-FROM jso26/onesite-nginx-php:latest
+FROM s0chi/alpine-nginx-php:latest
 
 # install composer from the official image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
