@@ -10,8 +10,8 @@ here:
 * based on Alpine Linux distribution
 * running unprivileged Nginx and PHP-FPM from supervisord
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/trafex/alpine-nginx-php7.svg)](https://hub.docker.com/r/trafex/alpine-nginx-php7/)
-[![Docker image layers](https://images.microbadger.com/badges/image/trafex/alpine-nginx-php7.svg)](https://microbadger.com/images/trafex/alpine-nginx-php7)
+[![Docker pulls](https://img.shields.io/docker/pulls/jso26/onesite-nginx-php.svg)](https://hub.docker.com/r/jso26/onesite-nginx-php/)
+[![Docker image layers](https://images.microbadger.com/badges/image/jso26/onesite-nginx-php.svg)](https://microbadger.com/images/jso26/onesite-nginx-php)
 
 ## Extending the server
 
@@ -78,15 +78,17 @@ location /api/ {
 
 ## Adding composer
 
-If you need composer in your project, here's an easy way to add it;
+This section is kept from the original repository. Preferably this should be
+rewritten using a multi-stage build definition.
 
 ```Dockerfile
-FROM trafex/alpine-nginx-php7:latest
+# build the image locally or download it from the Docker Hub
+FROM jso26/onesite-nginx-php:latest
 
-# Install composer from the official image
+# install composer from the official image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-# Run composer install to install the dependencies
+# run composer install to install the dependencies
 RUN composer install --optimize-autoloader --no-interaction --no-progress
 ```
 
