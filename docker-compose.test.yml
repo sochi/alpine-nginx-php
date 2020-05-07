@@ -2,10 +2,12 @@ version: '3.5'
 services:
   app:
     build: .
+    volumes:
+      - ./test/public:/var/www/public
   sut:
-    image: alpine:3.10
+    image: alpine:3.11
     depends_on:
       - app
     command: /tmp/run_tests.sh
     volumes:
-      - "./run_tests.sh:/tmp/run_tests.sh:ro"
+      - ./test/run_tests.sh:/tmp/run_tests.sh:ro
