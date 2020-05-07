@@ -29,7 +29,7 @@ RUN apk --no-cache add bash sed
 # copy over the nginx configuration along with default server settings that
 # defines the public root
 COPY config/nginx.conf /etc/nginx/nginx.conf
-COPY config/default.conf /etc/nginx/conf.d/default.conf
+COPY config/default_server.conf /etc/nginx/conf.d/default_server.conf
 
 # configure PHP-FPM
 COPY config/fpm-pool.conf /etc/php7/php-fpm.d/www.conf
