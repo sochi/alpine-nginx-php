@@ -6,6 +6,9 @@ apk --no-cache add curl
 sleep 2
 echo 'Slept for 2 seconds, querying now'
 curl http://app:8080
+sleep 10
+echo 'Slept for 10 seconds, querying now'
+curl http://app:8080
 echo 'Querying now with grep'
 curl --silent --fail http://app:8080 | grep 'PHP 7.3'
 echo $?
