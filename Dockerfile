@@ -39,7 +39,7 @@ COPY config/php.ini /etc/php7/conf.d/custom.ini
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # force ownership on directories and files needed by the processes
-RUN chown -R nginx:nginx /run \
+RUN chown -R nginx:nginx /var/run \
   && chown -R nginx:nginx /var/lib/nginx \
   && chmod -R g+w /var/lib/nginx \
   && chown -R nginx:nginx /var/log/nginx
