@@ -13,6 +13,7 @@ here:
 [![Docker pulls](https://img.shields.io/docker/pulls/s0chi/alpine-nginx-php.svg)](https://hub.docker.com/r/s0chi/alpine-nginx-php/)
 [![Docker image layers](https://images.microbadger.com/badges/image/s0chi/alpine-nginx-php.svg)](https://microbadger.com/images/s0chi/alpine-nginx-php)
 
+
 ## Extending the server
 
 The repository already contains a default server configuration that might be
@@ -23,10 +24,13 @@ The default server only uses HTTP and listens on port 8080. This is done to ease
 the configuration, and HTTPS can be terminated before the requests are proxied
 to the service; for details see below.
 
+
 ## Expected usage
 
+The image defined in this repository is primarily expected to be used as base
+when defining other images.
+
 ```Dockerfile
-# build an image from this repository as base image
 FROM s0chi/alpine-nginx-php
 WORKDIR /var/www
 COPY --chown=nginx <your_directory>/ /var/www
@@ -36,6 +40,26 @@ COPY --chown=nginx <your_directory>/ /var/www
 # logging on favicon.ico and robots.txt
 COPY <your_configuration_file>.conf /etc/nginx/conf.d/default.conf.add
 ```
+
+
+## Configure Nginx public root
+
+The public root in Nginx is set to `/var/www/html` by default. However this can
+be modified by providing a `NGINX_DEFAULT_ROOT` environment variable. The path
+is then appended to the default `/var/www`.
+
+```yaml
+services:
+  app:
+    image: s0chi/alpine-nginx-php
+    environment:
+      NGINX_DEFAULT_ROOT: your/public/dir
+    volumes:
+      - ./path/to/www:/var/www
+```
+
+The example above sets the public root to `/var/www/your/public/dir`.
+
 
 ## Running with HTTPS
 
@@ -59,6 +83,7 @@ mapping the ports.
       - 80:8080
 ```
 
+
 ### Proxy the requests
 
 With any advanced configuration needed, such as terminating HTTPS, a public HTTP
@@ -76,6 +101,7 @@ location /api/ {
 }
 ```
 
+
 ## Adding composer
 
 This section is kept from the original repository. Preferably this should be
@@ -91,6 +117,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # run composer install to install the dependencies
 RUN composer install --optimize-autoloader --no-interaction --no-progress
 ```
+
 
 ## Building the image locally
 
