@@ -16,6 +16,7 @@ RUN apk --no-cache add \
   php7-intl \
   php7-dom \
   php7-xmlreader \
+  php7-xmlwriter \
   php7-ctype \
   php7-session \
   php7-mbstring \
@@ -23,7 +24,7 @@ RUN apk --no-cache add \
   nginx \
   supervisor
 
-# reduce log rotation to keep last 2 weeks
+# setting log rotation to keep last 2 weeks
 RUN sed -ie -- "/rotate/s/[0-9]\+/14/g" /etc/logrotate.d/nginx
 
 # copy over the nginx configuration along with default server configuration to
@@ -38,7 +39,7 @@ COPY config/php.ini /etc/php7/conf.d/custom.ini
 # configure process supervisor
 COPY config/supervisord.conf /etc/
 
-# force ownership on directories and files needed by the processes
+# ownership on directories and files needed by the processes
 RUN chown -R nginx:nginx /run \
   && chown -R nginx:nginx /var/lib/nginx \
   && chmod -R g+w /var/lib/nginx \
