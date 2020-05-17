@@ -14,8 +14,8 @@ The respective changes include installing of `pdo_mysql` extentsion instead of
 MySQLi . And setting the default public directory differently to keep it closer
 to other images, such as `composer`.
 
-[![Docker pulls](https://img.shields.io/docker/pulls/s0chi/alpine-nginx-php.svg)](https://hub.docker.com/r/s0chi/alpine-nginx-php/)
-[![Docker image layers](https://images.microbadger.com/badges/image/s0chi/alpine-nginx-php.svg)](https://microbadger.com/images/s0chi/alpine-nginx-php)
+[![Docker pulls](https://img.shields.io/docker/pulls/soch1/alpine-nginx-php.svg)](https://hub.docker.com/r/soch1/alpine-nginx-php/)
+[![Docker image layers](https://images.microbadger.com/badges/image/soch1/alpine-nginx-php.svg)](https://microbadger.com/images/soch1/alpine-nginx-php)
 
 
 ## Extending the server
@@ -35,7 +35,7 @@ The image defined in this repository is primarily expected to be used as base
 when defining other images.
 
 ```Dockerfile
-FROM s0chi/alpine-nginx-php
+FROM soch1/alpine-nginx-php
 WORKDIR /app
 COPY --chown=nginx <your_directory>/ /app
 
@@ -55,7 +55,7 @@ path is then appended to the default `/app`.
 ```yaml
 services:
   app:
-    image: s0chi/alpine-nginx-php
+    image: soch1/alpine-nginx-php
     environment:
       NGINX_DEFAULT_ROOT: your/public/dir
     volumes:
@@ -113,7 +113,7 @@ rewritten using a multi-stage build definition.
 
 ```Dockerfile
 # build the image locally or download it from the Docker Hub
-FROM s0chi/alpine-nginx-php:latest
+FROM soch1/alpine-nginx-php:latest
 
 # install composer from the official image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -125,7 +125,7 @@ RUN composer install --optimize-autoloader --no-interaction --no-progress
 
 ## Availability
 
-The image can be downloaded from [Docker Hub](https://hub.docker.com/repository/docker/s0chi/alpine-nginx-php).
+The image can be downloaded from [Docker Hub](https://hub.docker.com/repository/docker/soch1/alpine-nginx-php).
 
 
 ### Building locally
