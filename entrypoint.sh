@@ -2,7 +2,7 @@
 
 if [ -z "$NGINX_DEFAULT_ROOT" ]
 then
-  NGINX_DEFAULT_ROOT="html"
+  NGINX_DEFAULT_ROOT="public_html"
 fi
 
 # escape slashes contained in root specification

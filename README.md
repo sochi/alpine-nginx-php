@@ -10,6 +10,10 @@ here:
 * based on Alpine Linux distribution
 * running unprivileged Nginx and PHP-FPM from supervisord
 
+The respective changes include installing of `pdo_mysql` extentsion instead of
+MySQLi . And setting the default public directory differently to keep it closer
+to other images, such as `composer`.
+
 [![Docker pulls](https://img.shields.io/docker/pulls/s0chi/alpine-nginx-php.svg)](https://hub.docker.com/r/s0chi/alpine-nginx-php/)
 [![Docker image layers](https://images.microbadger.com/badges/image/s0chi/alpine-nginx-php.svg)](https://microbadger.com/images/s0chi/alpine-nginx-php)
 
@@ -32,8 +36,8 @@ when defining other images.
 
 ```Dockerfile
 FROM s0chi/alpine-nginx-php
-WORKDIR /var/www
-COPY --chown=nginx <your_directory>/ /var/www
+WORKDIR /app
+COPY --chown=nginx <your_directory>/ /app
 
 # append other configuration to the server if necessary
 # for instance we can set expiration headers for cache, or to disable access
@@ -44,9 +48,9 @@ COPY <your_configuration_file>.conf /etc/nginx/conf.d/default.conf.add
 
 ## Configure Nginx public root
 
-The public root in Nginx is set to `/var/www/html` by default. However this can
-be modified by providing a `NGINX_DEFAULT_ROOT` environment variable. The path
-is then appended to the default `/var/www`.
+The public root in Nginx is set to `/app/public_html` by default. However this
+can be modified by providing a `NGINX_DEFAULT_ROOT` environment variable. The
+path is then appended to the default `/app`.
 
 ```yaml
 services:
@@ -55,10 +59,10 @@ services:
     environment:
       NGINX_DEFAULT_ROOT: your/public/dir
     volumes:
-      - ./path/to/www:/var/www
+      - ./path/to/www:/app
 ```
 
-The example above sets the public root to `/var/www/your/public/dir`.
+The example above sets the public root to `/app/your/public/dir`.
 
 
 ## Running with HTTPS
@@ -119,7 +123,15 @@ RUN composer install --optimize-autoloader --no-interaction --no-progress
 ```
 
 
-## Building the image locally
+## Availability
+
+The image can be downloaded from [Docker Hub](https://hub.docker.com/repository/docker/s0chi/alpine-nginx-php).
+
+
+### Building locally
+
+If necessary the respective image can be build locally, instead of downloading
+it from the Docker Hub.
 
 ```bash
 docker build -t alpine-nginx-php .

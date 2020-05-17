@@ -3,7 +3,7 @@ services:
   app:
     build: .
     volumes:
-      - ./test/html:/var/www/html:ro
+      - ./test/html:/app/public_html:ro
   sut:
     image: alpine:3.11
     depends_on:
