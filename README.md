@@ -46,6 +46,46 @@ COPY <your_configuration_file>.conf /etc/nginx/conf.d/default.conf.add
 ```
 
 
+### Usage with composer
+
+With dependencies managed with [Composer](https://getcomposer.org/) the build
+definition could be changed to use a multi-stage build.
+
+Note that only the downloaded dependencies should be copied over and not the
+composer itself.
+
+```Dockerfile
+FROM composer AS composer
+
+# copying the source directory and install the dependencies with composer
+COPY <your_directory>/ /app
+RUN composer install \
+  --no-dev \
+  --optimize-autoloader \
+  --no-interaction \
+  --no-progress
+
+# continue stage build with the desired image and copy the source including the
+# dependencies downloaded by composer
+FROM soch1/alpine-nginx-php
+COPY --chown=nginx --from=composer /app /app
+
+# configure a directory with publicly available content
+ENV NGINX_DEFAULT_ROOT www
+
+# make logging and cache directories needed by the application,
+# building using nginx user therefore ownership setup is unnecessary as the
+# directories are created for current user
+WORKDIR /app
+RUN mkdir log temp
+
+# append other configuration to the server if necessary
+# for instance we can set expiration headers for cache, or to disable access
+# logging on favicon.ico and robots.txt
+COPY <your_configuration_file>.conf /etc/nginx/conf.d/default.conf.add
+```
+
+
 ## Configure Nginx public root
 
 The public root in Nginx is set to `/app/public_html` by default. However this
@@ -103,23 +143,6 @@ location /api/ {
   proxy_set_header X-Forwarded-Proto $scheme;
   proxy_read_timeout 900;
 }
-```
-
-
-## Adding composer
-
-This section is kept from the original repository. Preferably this should be
-rewritten using a multi-stage build definition.
-
-```Dockerfile
-# build the image locally or download it from the Docker Hub
-FROM soch1/alpine-nginx-php:latest
-
-# install composer from the official image
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-# run composer install to install the dependencies
-RUN composer install --optimize-autoloader --no-interaction --no-progress
 ```
 
 
