@@ -148,7 +148,7 @@ location /api/ {
 
 ## Availability
 
-The image can be downloaded from [Docker Hub](https://hub.docker.com/repository/docker/soch1/alpine-nginx-php).
+The image can be downloaded from [Docker Hub](https://hub.docker.com/r/soch1/alpine-nginx-php).
 
 
 ### Building locally
