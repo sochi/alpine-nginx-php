@@ -5,7 +5,7 @@ RUN apk --no-cache add \
   php7 \
   php7-fpm \
   php7-opcache \
-  php7-pdo_mysql \
+  php7-ctype \
   php7-json \
   php7-tokenizer \
   php7-openssl \
@@ -18,8 +18,8 @@ RUN apk --no-cache add \
   php7-dom \
   php7-xmlreader \
   php7-xmlwriter \
-  php7-ctype \
   php7-session \
+  php7-pdo_mysql \
   php7-fileinfo \
   php7-gd \
   php7-simplexml \
