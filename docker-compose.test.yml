@@ -5,7 +5,7 @@ services:
     volumes:
       - ./test/html:/app/public_html:ro
   sut:
-    image: alpine:3.11
+    image: alpine:3.12
     depends_on:
       - app
     command: /tmp/run_tests.sh
