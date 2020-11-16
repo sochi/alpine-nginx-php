@@ -10,6 +10,7 @@ RUN apk --no-cache add \
   php7-tokenizer \
   php7-openssl \
   php7-curl \
+  php7-mbstring \
   php7-zlib \
   php7-xml \
   php7-phar \
@@ -19,7 +20,7 @@ RUN apk --no-cache add \
   php7-xmlwriter \
   php7-ctype \
   php7-session \
-  php7-mbstring \
+  php7-fileinfo \
   php7-gd \
   php7-simplexml \
   nginx \
